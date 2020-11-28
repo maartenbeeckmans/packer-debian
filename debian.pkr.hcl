@@ -4,7 +4,7 @@
 variable "box_basename" {
   type = string
 }
-variable "build_directory" {
+variable "build_dir" {
   type = string
 }
 variable "scripts_dir" {
@@ -19,7 +19,7 @@ variable "disk_size" {
 variable "headless" {
   type = bool
 }
-variable "http_directory" {
+variable "http_dir" {
   type = string
 }
 variable "iso_checksum" {
@@ -34,7 +34,10 @@ variable "memory" {
 variable "mirror" {
   type = string
 }
-variable "mirror_directory" {
+variable "mirror_dir" {
+  type = string
+}
+variable "templates_dir" {
   type = string
 }
 variable "name" {
@@ -73,11 +76,11 @@ source "qemu" "debian10" {
   cpus             = "${var.cpus}"
   disk_size        = "${var.disk_size}"
   headless         = "${var.headless}"
-  http_directory   = "${var.http_directory}"
+  http_directory   = "${var.http_dir}"
   iso_checksum     = "${var.iso_checksum}"
-  iso_url          = "${var.mirror}/${var.mirror_directory}/${var.iso_name}"
+  iso_url          = "${var.mirror}/${var.mirror_dir}/${var.iso_name}"
   memory           = "${var.memory}"
-  output_directory = "${var.build_directory}/packer-${var.template}-qemu"
+  output_directory = "${var.build_dir}/packer-${var.template}-qemu"
   shutdown_command = "echo 'vagrant' | sudo -S /sbin/shutdown -hP now"
   ssh_port         = 22
   ssh_timeout      = "3600s"
@@ -118,10 +121,10 @@ build {
   post-processor "vagrant" {
     compression_level    = 9
     keep_input_artifact  = false
-    vagrantfile_template = "templates/debian10.rb"
+    vagrantfile_template = "${var.templates_dir}/debian10.rb"
     output               = "builds/debian10.box"
     include              = [
-      "templates/info.json"
+      "${var.templates_dir}/info.json"
     ]
   }
   post-processor "checksum" {
