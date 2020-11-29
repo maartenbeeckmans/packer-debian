@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -eux
 
 retry() {
   local COUNT=1

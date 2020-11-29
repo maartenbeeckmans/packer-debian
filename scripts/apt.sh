@@ -1,4 +1,7 @@
-#!/bin/bash
+#!/bin/bash -eux
+
+ip addr
+ip route
 
 retry() {
   local COUNT=1

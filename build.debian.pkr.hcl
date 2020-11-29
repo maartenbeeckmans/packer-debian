@@ -19,10 +19,9 @@ build {
     pause_before = "120s"
     scripts             = [
       "${var.scripts_dir}/floppy.sh",
-      "${var.scripts_dir}/profile.sh",
-      "${var.scripts_dir}/vagrant.sh",
       "${var.scripts_dir}/motd.sh",
-      "${var.scripts_dir}/fixtty.sh",
+      "${var.scripts_dir}/vagrant.sh",
+      "${var.scripts_dir}/profile.sh",
       "${var.scripts_dir}/qemu.sh"
     ]
   }
@@ -30,7 +29,7 @@ build {
     compression_level    = 9
     keep_input_artifact  = false
     vagrantfile_template = "${var.templates_dir}/debian10.rb"
-    output               = "builds/debian10.box"
+    output               = "${var.build_dir}/debian10.box"
     include              = [
       "${var.templates_dir}/info.json"
     ]
@@ -40,6 +39,6 @@ build {
       "sha256"
     ]
     keep_input_artifact = false
-    output              = "builds/debian10.box.sha256"
+    output              = "${var.build_dir}/debian10.box.sha256"
   }
 }

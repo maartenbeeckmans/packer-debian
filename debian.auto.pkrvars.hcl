@@ -4,8 +4,8 @@
 
 # Build vars
 name          = "debian-10.6"
-version       = "0.1"
-build_dir     = "./builds"
+version       = "0.2"
+build_dir     = "./packer_builds"
 scripts_dir   = "./scripts"
 http_dir      = "./http"
 templates_dir = "./templates"

@@ -1,39 +1,5 @@
 #!/bin/bash -eux
 
-retry() {
-  local COUNT=1
-  local RESULT=0
-  while [[ "${COUNT}" -le 10 ]]; do
-    [[ "${RESULT}" -ne 0 ]] && {
-      [ "`which tput 2> /dev/null`" != "" ] && tput setaf 1
-      echo -e "\n${*} failed... retrying ${COUNT} of 10.\n" >&2
-      [ "`which tput 2> /dev/null`" != "" ] && tput sgr0
-    }
-    "${@}" && { RESULT=0 && break; } || RESULT="${?}"
-    COUNT="$((COUNT + 1))"
-
-    # Increase the delay with each iteration.
-    DELAY="$((DELAY + 10))"
-    sleep $DELAY
-  done
-
-  [[ "${COUNT}" -gt 10 ]] && {
-    [ "`which tput 2> /dev/null`" != "" ] && tput setaf 1
-    echo -e "\nThe command failed 10 times.\n" >&2
-    [ "`which tput 2> /dev/null`" != "" ] && tput sgr0
-  }
-
-  return "${RESULT}"
-}
-
-
-error() {
-        if [ $? -ne 0 ]; then
-                printf "\n\napt failed...\n\n";
-                exit 1
-        fi
-}
-
 # Enable color support user profile template file.
 sed --in-place "s/#alias dir='dir --color=auto'/alias dir='dir --color=auto'/g" /etc/skel/.bashrc
 sed --in-place "s/#alias vdir='vdir --color=auto'/alias vdir='vdir --color=auto'/g" /etc/skel/.bashrc
@@ -54,12 +20,12 @@ fi
 
 # If the maarten user is already setup, edit the existing bashrc file.
 if [ -f /home/maarten/.bashrc ]; then
-  sed --in-place "s/#alias dir='dir --color=auto'/alias dir='dir --color=auto'/g" /home/vagrant/.bashrc
-  sed --in-place "s/#alias vdir='vdir --color=auto'/alias vdir='vdir --color=auto'/g" /home/vagrant/.bashrc
-  sed --in-place "s/#alias grep='grep --color=auto'/alias grep='grep --color=auto'/g" /home/vagrant/.bashrc
-  sed --in-place "s/#alias fgrep='fgrep --color=auto'/alias fgrep='fgrep --color=auto'/g" /home/vagrant/.bashrc
-  sed --in-place "s/#alias egrep='egrep --color=auto'/alias egrep='egrep --color=auto'/g" /home/vagrant/.bashrc
-  sed --in-place "s/#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'/export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'/g" /home/vagrant/.bashrc
+  sed --in-place "s/#alias dir='dir --color=auto'/alias dir='dir --color=auto'/g" /home/maarten/.bashrc
+  sed --in-place "s/#alias vdir='vdir --color=auto'/alias vdir='vdir --color=auto'/g" /home/maarten/.bashrc
+  sed --in-place "s/#alias grep='grep --color=auto'/alias grep='grep --color=auto'/g" /home/maarten/.bashrc
+  sed --in-place "s/#alias fgrep='fgrep --color=auto'/alias fgrep='fgrep --color=auto'/g" /home/maarten/.bashrc
+  sed --in-place "s/#alias egrep='egrep --color=auto'/alias egrep='egrep --color=auto'/g" /home/maarten/.bashrc
+  sed --in-place "s/#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'/export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'/g" /home/maarten/.bashrc
 fi
 
 # Enable color terminal support for root.

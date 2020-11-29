@@ -1,2 +1,2 @@
-builds/*
+packer_builds/*
 packer_cache/*
