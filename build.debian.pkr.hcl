@@ -22,7 +22,8 @@ build {
       "${var.scripts_dir}/motd.sh",
       "${var.scripts_dir}/vagrant.sh",
       "${var.scripts_dir}/profile.sh",
-      "${var.scripts_dir}/qemu.sh"
+      "${var.scripts_dir}/qemu.sh",
+      "${var.scripts_dir}/puppet.sh"
     ]
   }
   post-processor "vagrant" {

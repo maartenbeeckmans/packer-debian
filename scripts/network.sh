@@ -28,10 +28,10 @@ retry() {
 
 
 error() {
-        if [ $? -ne 0 ]; then
-                printf "\n\napt failed...\n\n";
-                exit 1
-        fi
+  if [ $? -ne 0 ]; then
+    printf "\n\nnetwork failed...\n\n";
+    exit 1
+  fi
 }
 
 # To allow for autmated installs, we disable interactive configuration steps.
@@ -65,7 +65,7 @@ printf "pre-up sleep 2\n" >> /etc/network/interfaces
 printf "nameserver 1.1.1.1\nnameserver 8.8.8.8\nnameserver 8.8.4.4\n" > /etc/resolv.conf
 
 # Install ifplugd so we can monitor and auto-configure nics.
-retry apt-get --assume-yes install ifplugd resolvconf
+retry apt-get --assume-yes install ifplugd resolvconf ; error
 
 # Configure ifplugd to monitor the eth0 interface.
 sed -i -e 's/INTERFACES=.*/INTERFACES="eth0"/g' /etc/default/ifplugd

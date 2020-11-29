@@ -29,21 +29,17 @@ retry() {
 
 error() {
   if [ $? -ne 0 ]; then
-    printf "\n\nqemu failed...\n\n";
+    printf "\n\npuppet failed...\n\n";
     exit 1
   fi
 }
-
-# Bail if we are not running atop QEMU.
-if [[ `dmidecode -s system-product-name` != "KVM" && `dmidecode -s system-manufacturer` != "QEMU" ]]; then
-    exit 0
-fi
-
-# Install the QEMU using Yum.
-printf "Installing the QEMU Tools.\n"
 
 # To allow for autmated installs, we disable interactive configuration steps.
 export DEBIAN_FRONTEND=noninteractive
 export DEBCONF_NONINTERACTIVE_SEEN=true
 
-retry apt-get --assume-yes install qemu-guest-agent; error
+wget http://apt.puppetlabs.com/puppet7-release-buster.deb -o /tmp/puppet7-release-buster.deb
+
+dpkg --install /tmp/puppet7-release-buster.deb; error
+retry apt-get --assume-yes -o Dpkg::Options::="--force-confnew" update; error
+retry apt-get --assume-yes install puppet-agent; error
