@@ -40,6 +40,9 @@ variable "mirror_dir" {
 variable "templates_dir" {
   type = string
 }
+variable "files_dir" {
+  type = string
+}
 variable "name" {
   type = string
 }

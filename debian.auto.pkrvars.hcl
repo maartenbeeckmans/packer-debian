@@ -9,6 +9,7 @@ build_dir     = "./packer_builds"
 scripts_dir   = "./scripts"
 http_dir      = "./http"
 templates_dir = "./templates"
+files_dir     = "./files"
 
 # OS vars
 iso_checksum  = "2af8f43d4a7ab852151a7f630ba596572213e17d3579400b5648eba4cc974ed0"

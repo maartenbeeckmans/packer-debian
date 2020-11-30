@@ -8,16 +8,6 @@ sed --in-place "s/#alias fgrep='fgrep --color=auto'/alias fgrep='fgrep --color=a
 sed --in-place "s/#alias egrep='egrep --color=auto'/alias egrep='egrep --color=auto'/g" /etc/skel/.bashrc
 sed --in-place "s/#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'/export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'/g" /etc/skel/.bashrc
 
-# If the vagrant user is already setup, edit the existing bashrc file.
-if [ -f /home/vagrant/.bashrc ]; then
-  sed --in-place "s/#alias dir='dir --color=auto'/alias dir='dir --color=auto'/g" /home/vagrant/.bashrc
-  sed --in-place "s/#alias vdir='vdir --color=auto'/alias vdir='vdir --color=auto'/g" /home/vagrant/.bashrc
-  sed --in-place "s/#alias grep='grep --color=auto'/alias grep='grep --color=auto'/g" /home/vagrant/.bashrc
-  sed --in-place "s/#alias fgrep='fgrep --color=auto'/alias fgrep='fgrep --color=auto'/g" /home/vagrant/.bashrc
-  sed --in-place "s/#alias egrep='egrep --color=auto'/alias egrep='egrep --color=auto'/g" /home/vagrant/.bashrc
-  sed --in-place "s/#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'/export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'/g" /home/vagrant/.bashrc
-fi
-
 # If the maarten user is already setup, edit the existing bashrc file.
 if [ -f /home/maarten/.bashrc ]; then
   sed --in-place "s/#alias dir='dir --color=auto'/alias dir='dir --color=auto'/g" /home/maarten/.bashrc
