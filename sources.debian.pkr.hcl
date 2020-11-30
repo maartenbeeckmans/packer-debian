@@ -19,12 +19,12 @@ source "qemu" "debian10" {
   ]
   boot_wait        = "10s"
   cpus             = "${var.cpus}"
+  memory           = "${var.memory}"
   disk_size        = "${var.disk_size}"
   headless         = "${var.headless}"
   http_directory   = "${var.http_dir}"
   iso_checksum     = "${var.iso_checksum}"
   iso_url          = "${var.mirror}/${var.mirror_dir}/${var.iso_name}"
-  memory           = "${var.memory}"
   output_directory = "${var.build_dir}/packer-${var.template}-qemu"
   shutdown_command = "echo 'vagrant' | sudo -S /sbin/shutdown -hP now"
   ssh_port         = 22
@@ -33,4 +33,5 @@ source "qemu" "debian10" {
   ssh_password     = "secret"
   vm_name          = "${var.template}"
   accelerator      = "kvm"
+  format           = "qcow2"
 }
