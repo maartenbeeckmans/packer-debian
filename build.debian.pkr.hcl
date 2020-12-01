@@ -9,6 +9,7 @@ build {
     expect_disconnect   = true
     scripts             = [
       "${var.scripts_dir}/apt.sh",
+      "${var.scripts_dir}/lvm.sh",
       "${var.scripts_dir}/network.sh",
     ]
   }
@@ -23,7 +24,6 @@ build {
       "${var.scripts_dir}/vagrant.sh",
       "${var.scripts_dir}/profile.sh",
       "${var.scripts_dir}/qemu.sh",
-      "${var.scripts_dir}/lvm.sh",
       "${var.scripts_dir}/puppet.sh"
     ]
   }
