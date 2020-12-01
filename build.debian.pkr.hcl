@@ -27,10 +27,6 @@ build {
       "${var.scripts_dir}/puppet.sh"
     ]
   }
-  provisioner "file" {
-    source = "${var.files_dir}/bashrc"
-    destination = "/home/vagrant/.bashrc"
-  }
   post-processor "vagrant" {
     compression_level    = 9
     keep_input_artifact  = false
