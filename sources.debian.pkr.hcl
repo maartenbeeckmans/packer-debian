@@ -13,8 +13,8 @@ source "qemu" "debian10" {
     "<esc><wait><esc><wait><esc><wait><esc><wait><esc><wait><esc><wait>",
     "<esc><wait><esc><wait><esc><wait><esc><wait><esc><wait><esc><wait>",
     "<esc><wait><esc><wait><esc><wait><esc><wait><esc><wait><esc><wait>",
-    "/install.amd/vmlinuz auto=true priority=critical vga=788 initrd=/install.amd/gtk/initrd.gz --- quiet ",
-    "ipv6.disable_ipv6=1 net.ifnames=0 biosdevname=0 preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/${var.preseed_path} ",
+    "/install.amd/vmlinuz auto=true priority=critical vga=788 initrd=/install.amd/gtk/initrd.gz console=ttyS0,115200 --- quiet ",
+    "ipv6.disable_ipv6=1 preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/${var.preseed_path} ",
     "<enter>"
   ]
   boot_wait        = "10s"
@@ -25,13 +25,13 @@ source "qemu" "debian10" {
   http_directory   = "${var.http_dir}"
   iso_checksum     = "${var.iso_checksum}"
   iso_url          = "${var.mirror}/${var.mirror_dir}/${var.iso_name}"
-  output_directory = "${var.build_dir}/packer-${var.template}-qemu"
-  shutdown_command = "echo 'vagrant' | sudo -S /sbin/shutdown -hP now"
+  output_directory = "${var.build_dir}"
+  shutdown_command = "sudo -S /sbin/shutdown -hP now"
   ssh_port         = 22
   ssh_timeout      = "3600s"
   ssh_username     = "root"
   ssh_password     = "secret"
-  vm_name          = "${var.template}"
+  vm_name          = "${var.template}.qcow2"
   accelerator      = "kvm"
   format           = "qcow2"
 }

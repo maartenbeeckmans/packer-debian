@@ -21,19 +21,10 @@ build {
     scripts             = [
       "${var.scripts_dir}/floppy.sh",
       "${var.scripts_dir}/motd.sh",
-      "${var.scripts_dir}/vagrant.sh",
       "${var.scripts_dir}/profile.sh",
       "${var.scripts_dir}/qemu.sh",
-      "${var.scripts_dir}/puppet.sh"
-    ]
-  }
-  post-processor "vagrant" {
-    compression_level    = 9
-    keep_input_artifact  = false
-    vagrantfile_template = "${var.templates_dir}/debian10.rb"
-    output               = "${var.build_dir}/debian10.box"
-    include              = [
-      "${var.templates_dir}/info.json"
+      "${var.scripts_dir}/puppet.sh",
+      "${var.scripts_dir}/cloud-init.sh"
     ]
   }
   post-processor "checksum" {
@@ -42,5 +33,9 @@ build {
     ]
     keep_input_artifact = false
     output              = "${var.build_dir}/debian10.box.sha256"
+  }
+  post-processor "compress" {
+    output = "${var.build_dir}/debian10.qcow2.tar.gz"
+    compression_level = 9
   }
 }
