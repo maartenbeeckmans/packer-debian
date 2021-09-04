@@ -37,8 +37,8 @@ error() {
 # To allow for autmated installs, we disable interactive configuration steps.
 export DEBIAN_FRONTEND=noninteractive
 export DEBCONF_NONINTERACTIVE_SEEN=true
-wget http://apt.puppetlabs.com/puppet-release-buster.deb -O /tmp/puppet-release-buster.deb
+wget https://apt.puppetlabs.com/puppet-release-bullseye.deb -O /tmp/puppet-release-bullseye.deb
 
-dpkg --install /tmp/puppet-release-buster.deb; error
+dpkg --install /tmp/puppet-release-bullseye.deb; error
 retry apt-get --assume-yes -o Dpkg::Options::="--force-confnew" update; error
 retry apt-get --assume-yes install puppet-agent; error
