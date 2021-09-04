@@ -2,7 +2,7 @@
 ## Build ##
 ###########
 build {
-  sources = ["source.qemu.debian10"]
+  sources = ["source.qemu.debian11"]
   provisioner "shell" {
     environment_vars    = ["HOME_DIR=/root",]
     start_retry_timeout = "15m"
@@ -32,10 +32,10 @@ build {
       "sha256"
     ]
     keep_input_artifact = false
-    output              = "${var.build_dir}/debian10.box.sha256"
+    output              = "${var.build_dir}/${var.box_basename}.qcow2.sha256"
   }
   post-processor "compress" {
-    output = "${var.build_dir}/debian10.qcow2.tar.gz"
+    output = "${var.build_dir}/${var.box_basename}.qcow2.tar.gz"
     compression_level = 9
   }
 }

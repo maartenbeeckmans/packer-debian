@@ -1,7 +1,7 @@
 #############
 ## Sources ##
 #############
-source "qemu" "debian10" {
+source "qemu" "debian11" {
   boot_command     = [
     "<esc><wait><esc><wait><esc><wait><esc><wait><esc><wait><esc><wait>",
     "<esc><wait><esc><wait><esc><wait><esc><wait><esc><wait><esc><wait>",
@@ -31,7 +31,7 @@ source "qemu" "debian10" {
   ssh_timeout      = "3600s"
   ssh_username     = "root"
   ssh_password     = "secret"
-  vm_name          = "${var.template}.qcow2"
+  vm_name          = "${var.box_basename}.qcow2"
   accelerator      = "kvm"
   format           = "qcow2"
 }
