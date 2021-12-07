@@ -11,6 +11,7 @@ build {
       "${var.scripts_dir}/apt.sh",
       "${var.scripts_dir}/lvm.sh",
       "${var.scripts_dir}/network.sh",
+      "${var.scripts_dir}/vagrant.sh",
     ]
   }
   provisioner "shell" {
@@ -37,5 +38,10 @@ build {
   post-processor "compress" {
     output = "${var.build_dir}/${var.box_basename}.qcow2.tar.gz"
     compression_level = 9
+  }
+  post-processor "vagrant" {
+    keep_input_artifact = true
+    provider_override   = "libvirt"
+    output              = "${var.build_dir}/${var.box_basename}.box"
   }
 }

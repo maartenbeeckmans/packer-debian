@@ -62,6 +62,7 @@ sed -i -e "/cdrom:/d" /etc/apt/sources.list
 retry apt-get --assume-yes -o Dpkg::Options::="--force-confnew" update; error
 retry apt-get --assume-yes -o Dpkg::Options::="--force-confnew" upgrade; error
 retry apt-get --assume-yes -o Dpkg::Options::="--force-confnew" dist-upgrade; error
+retry apt-get --assume-yes -o Dpkg::Options::="--force-confnew" autoremove -y; error
 
 # The packages users expect on a sane system.
 retry apt-get --assume-yes install vim net-tools tree curl httpie wget htop iftop iotop tmux telnet silversearcher-ag dnsutils unzip tar sed; error
