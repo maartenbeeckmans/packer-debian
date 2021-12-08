@@ -45,7 +45,7 @@ build {
     keep_input_artifact            = true
     provider_override              = "libvirt"
     output                         = "${var.build_dir}/${var.box_basename}.box"
-    vagrantfile_template           = "${var.templates_dir}/debian.rb.tpl"
+    vagrantfile_template           = "${var.files_dir}/debian.rb"
     vagrantfile_template_generated = true
   }
 }

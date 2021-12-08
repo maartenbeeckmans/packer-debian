@@ -13,8 +13,8 @@ Vagrant.configure(2) do |config|
       lv.disk_bus = "virtio"
       lv.driver = "kvm"
       lv.video_ram = 256
-      lv.cpus = ${cpus}
-      lv.memory = ${memory}
+      lv.cpus = 1
+      lv.memory = 1024
     end
   end
 end
