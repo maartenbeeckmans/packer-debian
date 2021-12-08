@@ -1,0 +1,15 @@
+{
+  "name": "maartenb/{{box_basename}}",
+  "author": "Maarten Beeckmans",
+  "website": "https://beeckmans.cloud/",
+  "repository": "https://github.com/maartenbeeckmans/packer-debian/",
+  "description": "My own debian vagrant boxes with puppet preinstalled",
+  "versions": [
+    {
+      "version": "{{version}}",
+      "providers": [
+        "name": "libvirt"
+      ]
+    }
+  ]
+}

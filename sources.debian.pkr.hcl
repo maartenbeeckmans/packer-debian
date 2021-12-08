@@ -2,7 +2,7 @@
 ## Sources ##
 #############
 source "qemu" "debian11" {
-  boot_command     = [
+  boot_command = [
     "<esc><wait><esc><wait><esc><wait><esc><wait><esc><wait><esc><wait>",
     "<esc><wait><esc><wait><esc><wait><esc><wait><esc><wait><esc><wait>",
     "<esc><wait><esc><wait><esc><wait><esc><wait><esc><wait><esc><wait>",
@@ -13,8 +13,8 @@ source "qemu" "debian11" {
     "<esc><wait><esc><wait><esc><wait><esc><wait><esc><wait><esc><wait>",
     "<esc><wait><esc><wait><esc><wait><esc><wait><esc><wait><esc><wait>",
     "<esc><wait><esc><wait><esc><wait><esc><wait><esc><wait><esc><wait>",
-    "/install.amd/vmlinuz auto=true priority=critical vga=788 initrd=/install.amd/gtk/initrd.gz console=ttyS0,115200 --- quiet ",
-    "ipv6.disable_ipv6=1 preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/${var.preseed_path} ",
+    "/install.amd/vmlinuz auto=true priority=critical vga=788 initrd=/install.amd/gtk/initrd.gz console=ttyS0,115200 --- quiet",
+    "ipv6.disable_ipv6=1 net.ifnames=0 biosdevname=0 preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/${var.preseed_path}",
     "<enter>"
   ]
   boot_wait        = "10s"
@@ -30,7 +30,7 @@ source "qemu" "debian11" {
   ssh_port         = 22
   ssh_timeout      = "3600s"
   ssh_username     = "root"
-  ssh_password     = "secret"
+  ssh_password     = "vagrant"
   vm_name          = "${var.box_basename}.qcow2"
   accelerator      = "kvm"
   format           = "qcow2"

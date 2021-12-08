@@ -40,5 +40,14 @@ printf "\nnet.ipv6.conf.all.disable_ipv6 = 1\n" >> /etc/sysctl.conf
 touch /etc/resolv.conf
 printf "nameserver 1.1.1.1\nnameserver 8.8.8.8\nnameserver 8.8.4.4\n" > /etc/resolv.conf
 
+# Install ifplugd so we can monitor and auto-configure nics.
+retry apt --assume-yes install ifplugd
+
+# Ensure the networking interfaces get configured on boot.
+systemctl enable networking.service
+
+# Ensure ifplugd also gets started, so the ethernet interface is monitored.
+systemctl enable ifplugd.service
+
 # Reboot onto the new kernel (if applicable).
 $(shutdown -r +1) &

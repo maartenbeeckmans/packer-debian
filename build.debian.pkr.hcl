@@ -1,25 +1,26 @@
 ###########
 ## Build ##
 ###########
+
 build {
   sources = ["source.qemu.debian11"]
   provisioner "shell" {
-    environment_vars    = ["HOME_DIR=/root",]
+    environment_vars    = ["HOME_DIR=/root", ]
     start_retry_timeout = "15m"
     expect_disconnect   = true
-    scripts             = [
+    scripts = [
       "${var.scripts_dir}/apt.sh",
       "${var.scripts_dir}/lvm.sh",
       "${var.scripts_dir}/network.sh",
-      "${var.scripts_dir}/vagrant.sh",
     ]
   }
   provisioner "shell" {
-    environment_vars    = ["HOME_DIR=/root",]
+    environment_vars    = ["HOME_DIR=/root", ]
     expect_disconnect   = true
     start_retry_timeout = "15m"
-    pause_before = "120s"
-    scripts             = [
+    pause_before        = "120s"
+    scripts = [
+      "${var.scripts_dir}/vagrant.sh",
       "${var.scripts_dir}/floppy.sh",
       "${var.scripts_dir}/motd.sh",
       "${var.scripts_dir}/profile.sh",
@@ -29,19 +30,22 @@ build {
     ]
   }
   post-processor "checksum" {
-    checksum_types      = [
+    checksum_types = [
       "sha256"
     ]
     keep_input_artifact = false
     output              = "${var.build_dir}/${var.box_basename}.qcow2.sha256"
   }
   post-processor "compress" {
-    output = "${var.build_dir}/${var.box_basename}.qcow2.tar.gz"
+    output            = "${var.build_dir}/${var.box_basename}.qcow2.tar.gz"
     compression_level = 9
   }
   post-processor "vagrant" {
-    keep_input_artifact = true
-    provider_override   = "libvirt"
-    output              = "${var.build_dir}/${var.box_basename}.box"
+    compression_level              = 9
+    keep_input_artifact            = true
+    provider_override              = "libvirt"
+    output                         = "${var.build_dir}/${var.box_basename}.box"
+    vagrantfile_template           = "${var.templates_dir}/debian.rb.tpl"
+    vagrantfile_template_generated = true
   }
 }
