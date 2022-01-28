@@ -3,8 +3,8 @@
 #####################
 
 # Build vars
-name          = "debian-11.1.0"
-version       = "1.0"
+name          = "debian-11.2.0"
+version       = "1.1"
 build_dir     = "./packer_builds"
 scripts_dir   = "./scripts"
 http_dir      = "./http"
@@ -12,15 +12,15 @@ templates_dir = "./templates"
 files_dir     = "./files"
 
 # OS vars
-iso_checksum = "02257c3ec27e45d9f022c181a69b59da67e5c72871cdb4f9a69db323a1fad58093f2e69702d29aa98f5f65e920e0b970d816475a5a936e1f3bf33832257b7e92"
-iso_name     = "debian-11.1.0-amd64-netinst.iso"
+iso_checksum = "c685b85cf9f248633ba3cd2b9f9e781fa03225587e0c332aef2063f6877a1f0622f56d44cf0690087b0ca36883147ecb5593e3da6f965968402cdbdf12f6dd74"
+iso_name     = "debian-11.2.0-amd64-netinst.iso"
 preseed_path = "preseed.cfg"
-template     = "debian-11.1.0"
+template     = "debian-11.2.0"
 mirror       = "http://cdimage.debian.org/cdimage/release"
-mirror_dir   = "11.1.0/amd64/iso-cd"
+mirror_dir   = "11.2.0/amd64/iso-cd"
 
 # VM vars
-box_basename = "debian-11.1.0"
+box_basename = "debian-11.2.0"
 cpus         = 2
 memory       = 1024
 disk_size    = "50G"
