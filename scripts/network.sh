@@ -30,12 +30,6 @@ retry() {
 export DEBIAN_FRONTEND=noninteractive
 export DEBCONF_NONINTERACTIVE_SEEN=true
 
-# Disable IPv6 for the current boot.
-sysctl net.ipv6.conf.all.disable_ipv6=1
-
-# Ensure IPv6 stays disabled.
-printf "\nnet.ipv6.conf.all.disable_ipv6 = 1\n" >> /etc/sysctl.conf
-
 # Ensure a nameserver is being used that won't return an IP for non-existent domain names.
 touch /etc/resolv.conf
 printf "nameserver 1.1.1.1\nnameserver 8.8.8.8\nnameserver 8.8.4.4\n" > /etc/resolv.conf
