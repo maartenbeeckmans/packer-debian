@@ -1,57 +1,42 @@
 ###############
 ## Variables ##
 ###############
-variable "box_basename" {
+variable "image_name" {
   type = string
 }
-variable "build_dir" {
+variable "image_version" {
   type = string
 }
-variable "scripts_dir" {
-  type = string
+
+variable "image_format" {
+  type    = string
+  default = "qcow2"
 }
+
 variable "cpus" {
-  type = number
+  type    = number
+  default = 2
 }
+
+variable "memory" {
+  type    = number
+  default = 1024
+}
+
 variable "disk_size" {
-  type = string
+  type    = string
+  default = "50G"
 }
+
 variable "headless" {
-  type = bool
+  type    = bool
+  default = true
 }
-variable "http_dir" {
-  type = string
-}
+
 variable "iso_checksum" {
   type = string
 }
-variable "iso_name" {
-  type = string
-}
-variable "memory" {
-  type = number
-}
-variable "mirror" {
-  type = string
-}
-variable "mirror_dir" {
-  type = string
-}
-variable "templates_dir" {
-  type = string
-}
-variable "files_dir" {
-  type = string
-}
-variable "name" {
-  type = string
-}
-variable "preseed_path" {
-  type = string
-}
-variable "template" {
-  type = string
-}
-variable "version" {
+
+variable "iso_url" {
   type = string
 }
