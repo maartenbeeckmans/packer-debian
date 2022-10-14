@@ -2,4 +2,4 @@
 include:
   - project: 'homelab/gitlab/pipeline_templates'
     file: 'packer-pipeline.yml'
-    ref: 'v1.2.0'
+    ref: 'v1.2.1'
