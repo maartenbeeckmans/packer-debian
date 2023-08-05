@@ -11,6 +11,7 @@ build {
       "./scripts/apt.sh",
       "./scripts/lvm.sh",
       "./scripts/network.sh",
+      "./scripts/efistub.sh",
     ]
   }
   provisioner "shell" {
