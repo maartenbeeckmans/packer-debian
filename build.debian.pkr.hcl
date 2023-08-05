@@ -31,10 +31,10 @@ build {
       "sha256"
     ]
     keep_input_artifact = false
-    output              = "./packer_builds/debian10.box.sha256"
+    output              = "./packer_builds/${local.image_full_name}.sha256"
   }
   post-processor "compress" {
-    output            = "./packer_builds/debian10.qcow2.tar.gz"
     compression_level = 9
+    output            = "./packer_builds/${local.image_full_name}.tar.gz"
   }
 }
