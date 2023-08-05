@@ -23,7 +23,6 @@ build {
       "./scripts/motd.sh",
       "./scripts/profile.sh",
       "./scripts/qemu.sh",
-      "./scripts/puppet.sh",
       "./scripts/cloud-init.sh"
     ]
   }
