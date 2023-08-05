@@ -41,9 +41,6 @@ error() {
 export DEBIAN_FRONTEND=noninteractive
 export DEBCONF_NONINTERACTIVE_SEEN=true
 
-# We handle name server setup later, but for now, we need to ensure valid resolvers are available.
-printf "nameserver 1.1.1.1\nnameserver 8.8.8.8\nnameserver 8.8.4.4\n" > /etc/resolv.conf
-
 # If the apt configuration directory exists, we add our own config options.
 if [ -d /etc/apt/apt.conf.d/ ]; then
   # Disable periodic activities of apt.
