@@ -5,5 +5,5 @@ image_name    = "debian-12"
 image_version = "1.0"
 image_format  = "qcow2"
 
-iso_checksum = "f02bb8c64546b993cceece91d20e4c0e974425dc1bf4ecd822039e6cf853b2e4597642dfe9ad0fe3d5da2c75271ecc255ed34a90b36f47b7d7b1b37243cc63cc"
-iso_url      = "http://cdimage.debian.org/cdimage/release/12.1.0/amd64/iso-dvd/debian-12.1.0-amd64-DVD-1.iso"
+iso_checksum = "c713fe4cb1fc8800e9e6912862d791788c570033691e1ade5619e628867ff50e5015517f8d310cd2d5177bb7625d69f2dcb7ebaf9ce82bfd9dc1833b92293180"
+iso_url      = "http://cdimage.debian.org/cdimage/release/12.4.0/amd64/iso-dvd/debian-12.4.0-amd64-DVD-1.iso"

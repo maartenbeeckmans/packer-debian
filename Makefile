@@ -1,10 +1,17 @@
-VARFILE = debian.auto.pkrvars.hcl
+DEBIAN_VARFILE = debian.auto.pkrvars.hcl
+SECRET_VARFILE = secret.debian.pkrvars.hcl
 
 init:
 	packer init .
 
-validate:
-	packer validate -var-file $(VARFILE) .
+validate-qemu:
+	packer validate -var-file $(DEBIAN_VARFILE) -var-file $(SECRET_VARFILE) build-qemu.debian.pkr.hcl
 
-build:
-	packer build -on-error=ask -timestamp-ui -var-file $(VARFILE) .
+build-qemu:
+	packer build -on-error=ask -timestamp-ui -var-file $(DEBIAN_VARFILE) build-qemu.debian.pkr.hcl
+
+validate-proxmox:
+	packer validate -var-file $(DEBIAN_VARFILE) -var-file $(SECRET_VARFILE) build-proxmox.debian.pkr.hcl
+
+build-proxmox:
+	packer build -on-error=ask -timestamp-ui -var-file $(DEBIAN_VARFILE) -var-file $(SECRET_VARFILE) build-proxmox.debian.pkr.hcl
