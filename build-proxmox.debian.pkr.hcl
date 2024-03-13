@@ -54,27 +54,6 @@ locals {
   image_full_name = "${var.image_name}-${var.image_version}"
 }
 
-build {
-  sources = [
-    "source.proxmox-iso.debian"
-  ]
-  provisioner "shell" {
-    environment_vars    = ["HOME_DIR=/root", ]
-    start_retry_timeout = "15m"
-    expect_disconnect   = true
-    scripts = [
-      "./scripts/apt.sh",
-      "./scripts/lvm.sh",
-      "./scripts/network.sh",
-      "./scripts/floppy.sh",
-      "./scripts/motd.sh",
-      "./scripts/profile.sh",
-      "./scripts/qemu.sh",
-      "./scripts/cloud-init.sh"
-    ]
-  }
-}
-
 source "proxmox-iso" "debian" {
 
   iso_checksum = "${var.iso_checksum}"
@@ -118,4 +97,25 @@ source "proxmox-iso" "debian" {
   ]
   boot_wait      = "10s"
   http_directory = "./http"
+}
+
+build {
+  sources = [
+    "source.proxmox-iso.debian"
+  ]
+  provisioner "shell" {
+    environment_vars    = ["HOME_DIR=/root", ]
+    start_retry_timeout = "15m"
+    expect_disconnect   = true
+    scripts = [
+      "./scripts/apt.sh",
+      "./scripts/lvm.sh",
+      "./scripts/network.sh",
+      "./scripts/floppy.sh",
+      "./scripts/motd.sh",
+      "./scripts/profile.sh",
+      "./scripts/qemu.sh",
+      "./scripts/cloud-init.sh"
+    ]
+  }
 }
