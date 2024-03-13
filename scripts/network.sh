@@ -40,22 +40,13 @@ export DEBCONF_NONINTERACTIVE_SEEN=true
 
 retry apt-get --assume-yes install systemd-resolved; error
 
-mv /etc/network/interfaces /etc/network/interfaces.save
-
 # Ping to test network connection
 ping -c 1 1.1.1.1
-
-default_interface=$(ip route get 1.1.1.1 | grep -Po '(?<=(dev ))(\S+)')
-
-touch "/etc/systemd/network/10-${default_interface}.network"
-printf '[Match]\nName=%s\n\n[Network]\nDHCP=yes\n' "${default_interface}" > "/etc/systemd/network/10-${default_interface}.network"
 
 sed -i -e 's/DNS=.*/DNS=1.1.1.1 1.0.0.1/g' /etc/systemd/resolved.conf
 sed -i -e 's/FallbackDNS=.*/FallbackDNS=8.8.8.8 8.8.4.4/g' /etc/systemd/resolved.conf
 
 systemd-analyze cat-config systemd/resolved.conf
 
-systemctl disable networking.service
-systemctl enable systemd-networkd
 systemctl enable systemd-resolved
 systemctl start systemd-resolved
