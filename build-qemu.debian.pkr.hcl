@@ -45,7 +45,7 @@ locals {
 
 source "qemu" "debian" {
   boot_command = [
-    "e<down><down><down><end>priority=critical auto=true preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed-qemu.cfg<leftCtrlOn>x<leftCtrlOff>"
+    "e<down><down><down><end>priority=critical auto=true preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg<leftCtrlOn>x<leftCtrlOff>"
   ]
   boot_wait         = "10s"
   cpus              = "${var.cpus}"
@@ -75,16 +75,6 @@ build {
   ]
   provisioner "shell" {
     environment_vars    = ["HOME_DIR=/root", ]
-    start_retry_timeout = "15m"
-    expect_disconnect   = true
-    scripts = [
-      "./scripts/apt.sh",
-      "./scripts/lvm.sh",
-      "./scripts/network.sh",
-    ]
-  }
-  provisioner "shell" {
-    environment_vars    = ["HOME_DIR=/root", ]
     expect_disconnect   = true
     start_retry_timeout = "15m"
     pause_before        = "120s"
@@ -92,18 +82,9 @@ build {
       "./scripts/efistub.sh",
     ]
   }
-  provisioner "shell" {
-    environment_vars    = ["HOME_DIR=/root", ]
-    expect_disconnect   = true
-    start_retry_timeout = "15m"
-    pause_before        = "120s"
-    scripts = [
-      "./scripts/floppy.sh",
-      "./scripts/motd.sh",
-      "./scripts/profile.sh",
-      "./scripts/qemu.sh",
-      "./scripts/cloud-init.sh"
-    ]
+  provisioner "ansible" {
+    playbook_file   = "provisioning/playbook.yml"
+    extra_arguments = ["--scp-extra-args", "'-O'", "--skip-tags", "systemd_resolved"]
   }
   post-processor "checksum" {
     checksum_types = [

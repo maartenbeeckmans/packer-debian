@@ -1,0 +1,17 @@
+---
+version: 3
+
+env:
+  VARFILE: debian.auto.pkrvars.hcl
+  SECRET_VARFILE: secret.debian.pkrvars.hcl
+
+tasks:
+  init:
+    cmds:
+      - packer init plugins.debian.pkr.hcl 
+  validate:
+    cmds:
+      - packer validate -var-file "${VARFILE}" -var-file "${SECRET_VARFILE}" build-proxmox.debian.pkr.hcl
+  build:
+    cmds:
+      - packer build -timestamp-ui -var-file "${VARFILE}" -var-file "${SECRET_VARFILE}" build-proxmox.debian.pkr.hcl

@@ -1,0 +1,56 @@
+---
+# playbook.yml
+- name: 'Provision Image'
+  hosts: default
+  become: true
+  tasks:
+    - name: Ensure lv_hack is removed
+      ansible.builtin.lvol:
+        state: absent
+        vg: vg_system
+        lv: lv_hack
+        force: true
+    - name: Ensure maartenb user is absent
+      ansible.builtin.user:
+        state: absent
+        name: maartenb
+    - name: Run base role
+      ansible.builtin.include_role:
+        name: roles/base
+      vars:
+        hostname: 'debian'
+        uid_ansible: 900
+        uid_maartenb: 1000
+        gid_ansible: 900
+        gid_maartenb: 1000
+        gid_ssh: 1001
+        gid_wheel: 1002
+        common_groups:
+          - state: present
+            name: maartenb
+        common_users:
+          - state: present
+            name: maartenb
+            comment: Maarten Beeckmans
+            group: maartenb
+            groups:
+              - wheel
+              - ssh
+        password_hash_root: $6$zKndW6AxqeLdb8hW$ZQ4VkxpbGwsC8uBQrrPE9VrjggQYg6y6vPf1e5iVJTcCAkv0mRRXd9SY3vET4vL2OHueTL/372bmKgUEw5aCU.
+        password_hash_maartenb: $6$zKndW6AxqeLdb8hW$ZQ4VkxpbGwsC8uBQrrPE9VrjggQYg6y6vPf1e5iVJTcCAkv0mRRXd9SY3vET4vL2OHueTL/372bmKgUEw5aCU.
+        ssh_key_ansible: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKpV+FTBwdcwaM1It2j58WHj+XN7Brl0YsK2NvCeQy0q maartenbeeckmans@Maartens-MacBook-Pro.local'
+        ssh_key_maartenb: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKpV+FTBwdcwaM1It2j58WHj+XN7Brl0YsK2NvCeQy0q maartenbeeckmans@Maartens-MacBook-Pro.local'
+    - name: Ensure base packages are installed
+      ansible.builtin.package:
+        name:
+          - cloud-init
+          - cloud-guest-utils
+          - qemu-guest-agent
+        state: present
+    - name: Run cloud-init clean
+      ansible.builtin.command: /usr/bin/cloud-init clean --logs --machine-id --seed
+    - name: Enable cloud-init on next boot
+      ansible.builtin.systemd_service:
+        name: cloud-init.service
+        enabled: true
+...
